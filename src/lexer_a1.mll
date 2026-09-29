@@ -11,7 +11,7 @@ let string_buf = Buffer.create 256
 (** regex patterns **)
 let line_terminator = '\r' | '\n' | "\r\n"
 let whitespace = (line_terminator | [' ' '\t'])+
-let digit = ['0'-'9']
+let keywords= 'def' | 'if' | 'then ' | 'else' | 'data' | 'type' | 'import' | 'as' | 'and' | 'in' | 'match' | 'with'
 let digit = ['0'-'9']
 
 (** lexing rules **)
