@@ -19,6 +19,11 @@ type 't prog =
       left : 't prog;
       right : 't prog;
     }
+  | Variable of {
+      pos : pos;
+      name : 't prog;
+      value : 't prog;
+    }
 and op =
   | Add
   | Sub
@@ -29,6 +34,11 @@ and op =
   | LOr
   | LAnd
   (* Lack of Integer Division and Comparasion Expression*)
+  | GT
+  | GTEq
+  | LT
+  | LTEq
+  | Eq
 
 let prop_of_prog(prog : 't prog) : 't = match prog with
   | IntLit r -> r.prop
@@ -51,3 +61,9 @@ and string_of_op op : string = match op with
   | Mod -> "%"
   | LOr -> "||"
   | LAnd -> "&&"
+  | GT -> ">"
+  | GTEq -> ">="
+  | LT -> "<"
+  | LTEq -> "<="
+  | Eq -> "=="
+

@@ -12,6 +12,8 @@ open Ast
 %token PLUS "+" TIMES "*"
 %token OROR "||" ANDAND "&&"
 %token LPAREN "(" RPAREN ")"
+%token DEF "def"
+%token EQ "="
 %token EOF
 
 (* precedence and associativity declarations *)
@@ -76,3 +78,12 @@ expr:
       value = n;
     }}
   | "("; e = expr; ")" { e }
+  
+var:
+  | "def"; id = identifier ; "=" ; e = expr {
+      Variable{
+        pos = $loc;
+        name = id;
+        value = e;
+      }
+  }
