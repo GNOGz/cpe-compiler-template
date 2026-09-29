@@ -12,6 +12,7 @@ let string_buf = Buffer.create 256
 let line_terminator = '\r' | '\n' | "\r\n"
 let whitespace = (line_terminator | [' ' '\t'])+
 let keywords= 'def' | 'if' | 'then ' | 'else' | 'data' | 'type' | 'import' | 'as' | 'and' | 'in' | 'match' | 'with'
+let symbols = "*" | "/" | "//" | "%" | "+" | "-" | "::" | "++" | "==" | "<" | "<=" | ">=" | ">" | "&&" | "||" | "$" 
 let digit = ['0'-'9']
 
 (** lexing rules **)
