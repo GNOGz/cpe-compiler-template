@@ -15,6 +15,9 @@ let keywords= 'def' | 'if' | 'then ' | 'else' | 'data' | 'type' | 'import' | 'as
 let symbols = "*" | "/" | "//" | "%" | "+" | "-" | "::" | "++" | "==" | "<" | "<=" | ">=" | ">" | "&&" | "||" | "$" 
             | "(" | ")" | "[" | "]" | "::" | "->" | "|" | "_" | "\\" | "=>"
 let digit = ['0'-'9']
+let letter = ['a'-'z' 'A'-'Z' '_']
+let upper_ident = ['A' - 'Z'] (character | digit)*
+let lower_ident = ['a' - 'z'] (character | digit)*
 
 (** lexing rules **)
 rule read = parse
