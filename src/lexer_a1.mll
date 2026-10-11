@@ -13,6 +13,7 @@ let line_terminator = '\r' | '\n' | "\r\n"
 let whitespace = (line_terminator | [' ' '\t'])+
 let keywords= 'def' | 'if' | 'then ' | 'else' | 'data' | 'type' | 'import' | 'as' | 'and' | 'in' | 'match' | 'with'
 let symbols = "*" | "/" | "//" | "%" | "+" | "-" | "::" | "++" | "==" | "<" | "<=" | ">=" | ">" | "&&" | "||" | "$" 
+            | "(" | ")" | "[" | "]" | "::" | "->" | "|" | "_" | "\\" | "=>"
 let digit = ['0'-'9']
 
 (** lexing rules **)
