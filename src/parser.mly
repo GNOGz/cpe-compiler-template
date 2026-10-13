@@ -10,17 +10,17 @@ open Ast
 %token TRUE "true"
 %token FALSE "false"
 %token PLUS "+" TIMES "*"
+%token MINUS "-"
+%token DIV "/" INT_DIV "//" MOD "%"
 %token OROR "||" ANDAND "&&"
 %token LPAREN "(" RPAREN ")"
-%token DEF "def"
-%token EQ "="
 %token EOF
 
 (* precedence and associativity declarations *)
 %left OROR
 %left ANDAND
-%left PLUS
-%left TIMES
+%left PLUS MINUS
+%left TIMES DIV INT_DIV MOD
 
 (* starting nonterminal *)
 %start <unit prog> start
@@ -41,6 +41,12 @@ expr:
       left = e1;
       right = e2;
     }}
+  | e1 = expr; "-"; e2 = expr { BinExpr {
+      prop = ();
+      pos = $loc;
+      op = Sub;
+      left = e1;
+      right = e2;}}
   | e1 = expr; "*"; e2 = expr { BinExpr {
       prop = ();
       pos = $loc;
@@ -48,6 +54,27 @@ expr:
       left = e1;
       right = e2;
     }}
+  | e1 = expr; "/" ; e2 = expr { BinExpr {
+      prop = ();
+      pos = $loc;
+      op = Div;
+      left = e1;
+      right = e2;
+  }}
+  |  e1 = expr; "//"; e2 = expr { BinExpr {
+      prop = ();
+      pos = $loc;
+      op = IntDiv;
+      left = e1;
+      right = e2;
+    }}
+  | e1 = expr; "%" ; e2 = expr { BinExpr {
+      prop = ();
+      pos = $loc;
+      op = Mod;
+      left = e1;
+      right = e2;
+  }}
   | e1 = expr; "||"; e2 = expr { BinExpr {
       prop = ();
       pos = $loc;
@@ -78,12 +105,3 @@ expr:
       value = n;
     }}
   | "("; e = expr; ")" { e }
-  
-var:
-  | "def"; id = identifier ; "=" ; e = expr {
-      Variable{
-        pos = $loc;
-        name = id;
-        value = e;
-      }
-  }

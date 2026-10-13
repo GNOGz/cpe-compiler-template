@@ -19,31 +19,30 @@ type 't prog =
       left : 't prog;
       right : 't prog;
     }
-  | Variable of {
+  |  UnaryExpr of {
+      prop : 't;
       pos : pos;
-      name : 't prog;
-      value : 't prog;
+      op : unop;
+      operand : 't prog;
     }
+
 and op =
   | Add
   | Sub
   | Mult
   | Div
-  | IDiv
+  | IntDiv
   | Mod
   | LOr
   | LAnd
-  (* Lack of Integer Division and Comparasion Expression*)
-  | GT
-  | GTEq
-  | LT
-  | LTEq
-  | Eq
+and unop =
+  | Neq
 
 let prop_of_prog(prog : 't prog) : 't = match prog with
   | IntLit r -> r.prop
   | BoolLit r -> r.prop
   | BinExpr r -> r.prop
+  | UnaryExpr r -> r.prop
 
 (* TODO: define pretty-printing *)
 let rec string_of_prog prog : string = match prog with
@@ -52,18 +51,17 @@ let rec string_of_prog prog : string = match prog with
   | BinExpr r -> "("
         ^ String.concat " " [string_of_op r.op; string_of_prog r.left; string_of_prog r.right]
         ^ ")"
-and string_of_op op : string = match op with
+  | UnaryExpr r -> "(" ^ string_of_unop r.op ^ string_of_prog r.operand ^ ")"
+
+  and string_of_op op : string = match op with
   | Add -> "+"
   | Sub -> "-"
   | Mult -> "*"
   | Div -> "/"
-  | IDiv -> "//"
+  | IntDiv -> "//"
   | Mod -> "%"
   | LOr -> "||"
   | LAnd -> "&&"
-  | GT -> ">"
-  | GTEq -> ">="
-  | LT -> "<"
-  | LTEq -> "<="
-  | Eq -> "=="
 
+  and string_of_unop op : string = match op with
+  | Neq -> "-"
