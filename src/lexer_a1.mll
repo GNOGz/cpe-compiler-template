@@ -16,8 +16,12 @@ let symbols = "*" | "/" | "//" | "%" | "+" | "-" | "::" | "++" | "==" | "<" | "<
             | "(" | ")" | "[" | "]" | "::" | "->" | "|" | "_" | "\\" | "=>"
 let digit = ['0'-'9']
 let letter = ['a'-'z' 'A'-'Z' '_']
-let upper_ident = ['A' - 'Z'] (character | digit)*
-let lower_ident = ['a' - 'z'] (character | digit)*
+let upper_ident = ['A' - 'Z'] (letter | digit)*
+let lower_ident = ['a' - 'z'] (letter | digit)*
+let escape   = '\\' ['\\' '\'' '"' 'n' 'r' 't' 'b'] 
+let bool_lit = "True" | "False"
+let int_lit = digit+
+let float_lit = digit+ '.' digit+
 
 (** lexing rules **)
 rule read = parse
