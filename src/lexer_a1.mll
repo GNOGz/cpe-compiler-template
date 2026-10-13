@@ -11,7 +11,7 @@ let string_buf = Buffer.create 256
 (** regex patterns **)
 let line_terminator = '\r' | '\n' | "\r\n"
 let whitespace = (line_terminator | [' ' '\t'])+
-let keywords= 'def' | 'if' | 'then ' | 'else' | 'data' | 'type' | 'import' | 'as' | 'and' | 'in' | 'match' | 'with'
+let keywords= "def" | "if" | "then" | "else" | "data" | "type" | "import" | "as" | "and" | "in" | "match" | "with"
 let symbols = "*" | "/" | "//" | "%" | "+" | "-" | "::" | "++" | "==" | "<" | "<=" | ">=" | ">" | "&&" | "||" | "$" 
             | "(" | ")" | "[" | "]" | "::" | "->" | "|" | "_" | "\\" | "=>"
 let digit = ['0'-'9']
@@ -29,6 +29,6 @@ rule read = parse
   | symbols as s { Symbol(s)}
   | keywords as k { Keyword(k)}
   | int_lit as i {IntLit (int_of_string i) }
-  | float_lit as f {Floatlit (float_of_string f)}
+  | float_lit as f {FloatLit (float_of_string f)}
   | eof { EOF }
   | _ { error (Lexing.lexeme lexbuf) lexbuf }
