@@ -26,6 +26,9 @@ let float_lit = digit+ '.' digit+
 (** lexing rules **)
 rule read = parse
   | whitespace { read lexbuf }
-  | "+" { Symbol("+") }
+  | symbols as s { Symbol(s)}
+  | keywords as k { Keyword(k)}
+  | int_lit as i {IntLit (int_of_string i) }
+  | float_lit as f {Floatlit (float_of_string f)}
   | eof { EOF }
   | _ { error (Lexing.lexeme lexbuf) lexbuf }
